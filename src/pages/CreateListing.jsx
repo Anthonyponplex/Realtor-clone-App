@@ -3,10 +3,10 @@ import { toast } from "react-toastify";
 import { Spinner } from "../components/Spinner";
 import { v4 as uuidv4 } from "uuid";
 import {
+  getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
-  getDownloadURL,
 } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -27,7 +27,7 @@ export const CreateListing = () => {
     furnished: false,
     address: "",
     description: "",
-    offer: true,
+    offer: false,
     regularPrice: 0,
     discountedPrice: 0,
     latitude: 0,
@@ -96,7 +96,8 @@ export const CreateListing = () => {
       geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
       geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;
 
-      location = data.status === "ZERO_RESULTS && undefined";
+      location = data.status === "ZERO_RESULTS" && undefined;
+
       if (location === undefined || location.includes("undefined")) {
         setLoading(false);
         toast.error("please enter a correct address");
@@ -138,7 +139,7 @@ export const CreateListing = () => {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              resolve("File available at", downloadURL);
+              resolve(downloadURL);
             });
           }
         );
@@ -157,6 +158,7 @@ export const CreateListing = () => {
       imgUrls,
       geolocation,
       timestamp: serverTimestamp(),
+      userRef: auth.currentUser.uid,
     };
     delete formDataCopy.images;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
