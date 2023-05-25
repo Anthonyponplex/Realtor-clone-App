@@ -12,11 +12,12 @@ import { getAuth } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { FaDoorClosed } from "react-icons/fa";
 
 export const CreateListing = () => {
   const navigate = useNavigate();
   const auth = getAuth();
-  const [geolocationEnabled, setGeolocationEnabled] = useState(false);
+  const [geolocationEnabled, setGeolocationEnabled] = useState(FaDoorClosed);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     type: "rent",
