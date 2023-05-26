@@ -13,6 +13,7 @@ import { Header } from "./components/Header";
 import { EditListing } from "./pages/EditListing";
 import { Listing } from "./pages/Listing";
 import Profile from "./pages/Profile";
+import { Category } from "./pages/Category";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             element={<Listing />}
           />
           <Route path="/offers" element={<Offers />} />
+          <Route path="/category/:categoryName" element={<Category />} />
         </Routes>
       </Router>
       <ToastContainer
