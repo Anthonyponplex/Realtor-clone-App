@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { Home } from "./pages/Home";
 import { Offers } from "./pages/Offers";
-
 import { PrivateRoute } from "./components/PrivateRoute";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
